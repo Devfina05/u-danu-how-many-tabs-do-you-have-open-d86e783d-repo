@@ -74,8 +74,27 @@ def verify_entry(path: Path, expected: str) -> None:
         )
 
 
+def resolve_tab_count() -> int:
+    """Honest count, optionally overridden for a local re-run.
+
+    The submitted count is TAB_COUNT. Setting MAKEFUN_TAB_COUNT lets
+    someone re-run the program against their own browser's pile without
+    editing the source; the value still has to pass the same digits
+    check as the built-in count.
+    """
+    raw = os.environ.get("MAKEFUN_TAB_COUNT")
+    if raw is None or raw == "":
+        return TAB_COUNT
+    try:
+        return int(raw, 10)
+    except ValueError:
+        raise ValueError(
+            f"MAKEFUN_TAB_COUNT must be digits only, got {raw!r}"
+        ) from None
+
+
 def main() -> int:
-    text = build_entry_text(TAB_COUNT)
+    text = build_entry_text(resolve_tab_count())
     path = write_entry(text, resolve_output_dir())
     verify_entry(path, text)
     return 0

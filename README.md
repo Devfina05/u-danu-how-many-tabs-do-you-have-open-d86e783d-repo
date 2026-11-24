@@ -18,7 +18,9 @@ python3 main.py
 ```
 
 Set `MAKEFUN_OUTPUT_DIR` to choose where `entry.txt` is written; it
-defaults to `/output`.
+defaults to `/output`. To re-run against your own browser's pile
+instead, set `MAKEFUN_TAB_COUNT` to your honest count — it must still
+be digits only, 1–5 characters.
 
 ## Entry
 
